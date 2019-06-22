@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wwq.mapper.ProductMapper">
+
+    <select id="findAll" resultType="product">
+        select * from product
+    </select>
+
+    <select id="findProductById" parameterType="int" resultType="product">
+        select * from product where id=#{id}
+    </select>
+<!--    count(*) 检索效率低
+        count(主键)
+        count(1):常量列
+-->
+    <select id="findTotalCount" resultType="int">
+        select count(1) from product
+    </select>
+<!--    #{param1} 第一个参数
+        #{param2} 第二个参数
+        -->
+    <select id="findByPage" resultType="product">
+        select * from product limit #{param1},#{param2}
+    </select>
+
+    <insert id="save" parameterType="product">
+        insert into product values(null,#{productNum},#{productName},#{cityName},#{departureTime}
+                                         ,#{productPrice},#{productDesc},#{productStatus})
+    </insert>
+
+    <update id="update" parameterType="product">
+        update product set productNum=#{productNum},productName=#{productName},cityName=#{cityName},
+        departureTime=#{departureTime},productPrice=#{productPrice},productDesc=#{productDesc},productStatus=#{productStatus}
+        where id=#{id}
+    </update>
+
+    <delete id="deleById" parameterType="int">
+        delete from product where id=#{id}
+    </delete>
+
+
+
+
+</mapper>

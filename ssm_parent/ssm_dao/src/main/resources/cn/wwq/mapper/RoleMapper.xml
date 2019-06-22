@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wwq.mapper.RoleMapper">
+
+    <resultMap id="roleMap" type="role">
+        <id property="id" column="id"/>
+        <result property="roleName" column="roleName"/>
+        <result property="roleDesc" column="roleDesc"/>
+        <collection property="permissionList" ofType="permission" column="id"
+                    select="cn.wwq.mapper.PermissionMapper.findPermissionByRid"
+            fetchType="lazy"
+        >
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultType="role">
+        select * from sys_role
+    </select>
+
+    <select id="findById" parameterType="int" resultMap="roleMap">
+        select * from sys_role where id=#{id}
+    </select>
+    
+    <select id="findRoleByUid" parameterType="int" resultMap="roleMap">
+            SELECT
+                r.*
+            FROM
+                sys_role r,
+                sys_user_role ur
+            WHERE
+                r.id=ur.roleId
+                AND ur.userId=#{id}
+    </select>
+
+
+
+    <insert id="save" parameterType="role">
+        insert into sys_role values(null,#{roleName},#{roleDesc})
+    </insert>
+
+    <insert id="addRolePermission">
+        insert into sys_role_permission values (#{param2},#{param1})
+    </insert>
+
+    <delete id="deleteRolePermission" parameterType="int">
+        delete from sys_role_permission where roleId=#{roleId}
+    </delete>
+
+    
+    
+
+
+</mapper>

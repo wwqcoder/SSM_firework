@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wwq.mapper.UserMapper">
+
+    <resultMap id="userMap" type="sysUser">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="password" column="password"/>
+        <result property="phoneNum" column="phoneNum"/>
+        <result property="status" column="status"/>
+        <collection property="roleList" ofType="role" column="id"
+                    select="cn.wwq.mapper.RoleMapper.findRoleByUid"
+            fetchType="lazy"
+        >
+        </collection>
+    </resultMap>
+
+
+    <select id="loadUserByUsername" parameterType="string" resultMap="userMap">
+        select * from sys_user where username=#{abc} and status = 1
+    </select>
+
+    <select id="findAll" resultType="sysUser">
+        select * from sys_user
+    </select>
+
+    <select id="checkUsername" parameterType="string" resultType="sysUser">
+        select * from sys_user where username=#{username}
+    </select>
+    <select id="findUserById" parameterType="int" resultMap="userMap">
+        select * from sys_user where id=#{id}
+    </select>
+
+    <insert id="save" parameterType="sysUser">
+        insert into sys_user values(null,#{username},#{email},#{password},#{phoneNum},#{status})
+    </insert>
+
+    <delete id="deleteUserRoleRelation" parameterType="int">
+        delete from sys_user_role where userId=#{userId}
+    </delete>
+
+    <insert id="addRoleToUser">
+        insert into sys_user_role values (#{param1},#{param2})
+    </insert>
+
+</mapper>

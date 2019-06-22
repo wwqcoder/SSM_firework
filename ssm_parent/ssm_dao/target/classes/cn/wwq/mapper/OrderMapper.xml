@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wwq.mapper.OrderMapper">
+
+    <resultMap id="OrderMap" type="order">
+        <id property="id" column="id"/>
+        <result property="orderNum" column="orderNum"/>
+        <result property="orderTime" column="orderTime"/>
+        <result property="peopleCount" column="peopleCount"/>
+        <result property="orderDesc" column="orderDesc"/>
+        <result property="payType" column="payType"/>
+        <result property="orderStatus" column="orderStatus"/>
+        <association property="product" javaType="product" column="productId"
+                     select="cn.wwq.mapper.ProductMapper.findProductById">
+        </association>
+    </resultMap>
+
+
+    <select id="findAll" resultMap="OrderMap">
+        select * from orders
+    </select>
+
+    <select id="findOrderById" parameterType="int" resultMap="OrderMap">
+        select * from orders where id=#{id}
+    </select>
+
+    <insert id="save" parameterType="order">
+        insert into orders values(null,#{orderNum},#{orderTime},#{peopleCount}, #{orderDesc}, #{payType} , #{orderStatus} , #{product.id})
+    </insert>
+
+    <update id="update" parameterType="order">
+        update orders set orderNum=#{orderNum},orderTime=#{orderTime},peopleCount=#{peopleCount},
+        orderDesc=#{orderDesc},payType=#{payType},orderStatus=#{orderStatus},productId=#{product.id}
+        where id=#{id}
+    </update>
+
+    <delete id="dele" parameterType="int">
+        delete from orders where id=#{id}
+    </delete>
+
+
+
+
+
+</mapper>

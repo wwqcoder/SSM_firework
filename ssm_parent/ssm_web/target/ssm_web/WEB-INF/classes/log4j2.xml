@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" monitorInterval="30" strict="true" schema="Log4J-V2.2.xsd">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <!-- 将日志输出到控制台 -->
+            <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %level [%C{36}.%M] - %msg%n"/>
+        </Console>
+        <!--将日志输出到文件中-->
+        <file name="myLogFile" fileName="log/ssm.log" append="true">
+            <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %level [%C{36}.%M] - %msg%n"/>
+        </file>
+    </Appenders>
+
+    <Loggers>
+        <!-- 全局配置 -->
+        <root level="info">
+            <!--普通日志要在哪里显示-->
+            <appenderRef ref="Console"/>
+            <appender-ref ref="myLogFile"/>
+        </root>
+
+        <!-- 业务层日志 -->
+        <logger name="cn.wwq.service" level="debug" additivity="false">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="myLogFile"/>
+        </logger>
+
+        <!-- 持久层日志 -->
+        <logger name="cn.wwq.mapper" level="debug" additivity="false">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="myLogFile"/>
+        </logger>
+        <!-- 事务日志 -->
+        <logger name="org.springframework.jdbc" level="debug" additivity="false">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="myLogFile"/>
+        </logger>
+    </Loggers>
+
+
+</Configuration>

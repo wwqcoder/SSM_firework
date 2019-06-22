@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wwq.mapper.PermissionMapper">
+
+    <select id="findAll" resultType="permission">
+        select * from sys_permission
+    </select>
+
+    <select id="findByPid" parameterType="int" resultType="permission">
+        select * from sys_permission where pid=0
+    </select>
+    <select id="findNotParentList" resultType="permission">
+        select * from sys_permission where pid!=0
+    </select>
+
+    <select id="findPermissionByRid" parameterType="int" resultType="permission">
+        SELECT
+            p.*
+        FROM
+            sys_permission p,
+            sys_role_permission rp
+        WHERE
+            p.id=rp.permissionId
+         AND rp.roleId=#{id}
+    </select>
+
+
+    <insert id="save" parameterType="permission">
+        insert into sys_permission
+        values (null,#{permissionName}, #{url}, #{pid})
+    </insert>
+
+
+</mapper>

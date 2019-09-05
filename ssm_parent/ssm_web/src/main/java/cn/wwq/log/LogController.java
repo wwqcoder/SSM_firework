@@ -21,7 +21,7 @@ import java.util.Date;
  * @Aspect   切面类
  */
 @Component
-@Aspect
+//@Aspect
 public class LogController {
 
     @Autowired
@@ -33,13 +33,13 @@ public class LogController {
     /**
      * 切入点
      */
-    @Pointcut("execution(* cn.wwq.controller.*.*(..))")
+    //@Pointcut("execution(* cn.wwq.controller.*.*(..))")
     public void pc(){}
 
     /**
      * 前置增强的织入
      */
-    @Before("pc()")
+    //@Before("pc()")
     public void before(JoinPoint joinPoint){
         //创建日志对象
 

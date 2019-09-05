@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 数据库配置文件 -->
+    <properties resource="db.properties"/>
+
+    <context id="context1">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+        <!-- 注释生成规则 -->
+        <commentGenerator type="org.mybatis.generator.internal.DefaultCommentGenerator">
+            <property name="suppressAllComments" value="false"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库连接 -->
+        <jdbcConnection driverClass="${jdbc.driver}" connectionURL="${jdbc.url}" userId="${jdbc.username}"
+                        password="${jdbc.password}"/>
+
+        <!-- 数据库的生成配置 -->
+        <javaModelGenerator targetPackage="cn.wwq.pojo" targetProject="src/main/java"/>
+        <sqlMapGenerator targetPackage="cn.wwq.mapper" targetProject="src/main/resources"/>
+        <javaClientGenerator targetPackage="cn.wwq.mapper" targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+
+        <!-- 以上部分配置固定，无需改动，此处往下开始项目设置 -->
+        <table tableName="account" domainObjectName="Account" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+            <!-- 是否用数据库里的名字 false为默认驼峰， true为数据库中的名字-->
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

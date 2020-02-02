@@ -1,0 +1,2 @@
+[2020-02-01T10:55:33.278+08:00] [WARN] [http-nio-8001-exec-1-30] [cn.wwq.collector.web.IndexController] [localhost] [192.168.1.110] [collector] [IndexController.java,51,cn.wwq.collector.web.IndexController,index] [warn日志] ## ''
+[2020-02-01T10:55:33.279+08:00] [ERROR] [http-nio-8001-exec-1-30] [cn.wwq.collector.web.IndexController] [localhost] [192.168.1.110] [collector] [IndexController.java,52,cn.wwq.collector.web.IndexController,index] [error日志] ## ''
